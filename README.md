@@ -1,6 +1,6 @@
 # keycloak-spring-boot-demo
 
-## Step 1. Install keycloak
+## Keycloak installation
 To install the Keycloak as a service with docker, execute the following command in your terminal:
 ```
 docker run -p 7070:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak
@@ -79,4 +79,11 @@ To set free the port on \*nix system, use following command.
 ```
 lsof -i tcp:7070
 kill -9 <PID>
+```
+
+## Keycloak configuration
+Open the [localhost:7070/auth](http://localhost:7070/auth) on browser and authenticate in this page.
+```
+Username: admin
+Password: admin
 ```
