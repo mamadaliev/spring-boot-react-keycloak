@@ -1,5 +1,12 @@
 # keycloak-spring-boot-demo
 
+### Stack
+- Spring Boot 2.4.0
+- Keycloak 12.0
+- Postgres 11.0
+- Docker
+- Maven
+
 ## Keycloak installation
 To install the Keycloak as a service with docker, execute the following command in your terminal:
 ```
