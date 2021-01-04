@@ -1,7 +1,7 @@
 # keycloak-spring-boot-demo
 
 ## Step 1. Install keycloak
-To install the Keycloak as a service with docker, execute the following line in your terminal:
+To install the Keycloak as a service with docker, execute the following command in your terminal:
 ```
 docker run -p 7070:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak
 ```
@@ -53,4 +53,30 @@ services:
 networks:
   net:
     driver: bridge
+```
+
+> If the port 7070 already in use, then need to find the process id and kill it.
+
+To set free the port on Windows, use following command.
+```
+> netstat -aon | findstr 7070
+  TCP    0.0.0.0:7070           0.0.0.0:0              LISTENING       1268
+  TCP    127.0.0.1:7070         127.0.0.1:49920        FIN_WAIT_2      1268
+  TCP    127.0.0.1:7070         127.0.0.1:49925        FIN_WAIT_2      1268
+  TCP    127.0.0.1:49920        127.0.0.1:7070         CLOSE_WAIT      12776
+  TCP    127.0.0.1:49925        127.0.0.1:7070         CLOSE_WAIT      12776
+  TCP    [::]:7070              [::]:0                 LISTENING       1268
+  TCP    [::1]:7070             [::]:0                 LISTENING       10188
+  
+> taskkill /f /pid 1268
+SUCCESS: The process with PID 1268 has been terminated.
+
+> taskkill /f /pid 10188
+SUCCESS: The process with PID 10188 has been terminated.
+```
+
+To set free the port on \*nix system, use following command.
+```
+lsof -i tcp:7070
+kill -9 <PID>
 ```
