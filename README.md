@@ -1,11 +1,14 @@
 # keycloak-spring-boot-demo
 
 ### Stack
+- Open JDK 11
+- Maven 3.6.3
 - Spring Boot 2.4.0
 - Keycloak 12.0
 - Postgres 11.0
-- Docker
-- Maven
+
+Also:
+- **Docker Desktop** &mdash; for building images and running containers
 
 ## Keycloak installation
 To install the Keycloak as a service with docker, execute the following command in your terminal:
@@ -89,8 +92,58 @@ kill -9 <PID>
 ```
 
 ## Keycloak configuration
-Open the [localhost:7070/auth](http://localhost:7070/auth) on browser and authenticate in this page.
+Open the [localhost:7070/auth](http://localhost:7070/auth) on browser and click the Administration console link.
+
+![](https://i.ibb.co/sVxX3Hw/image.png)
+
+Authenticate in this page with following credentionals.
 ```
 Username: admin
 Password: admin
 ```
+![](https://i.ibb.co/cgSW1Rs/image.png)
+
+## Add a new REALM
+Realm is the same as a tenant.
+![](https://i.ibb.co/Mn12Jm4/image.png)
+
+Create a new realm by the name `dev`.
+![](https://i.ibb.co/t29xsSQ/image.png)
+
+## Add a new client
+Add a new client by the name `book`.
+![](https://i.ibb.co/kczrbMX/image.png)
+
+## Add a new Client Roles
+![](https://i.ibb.co/8XPgp6m/image.png)
+
+Add two roles:
+- USER
+- ADMIN
+
+![](https://i.ibb.co/LCWnrhN/image.png)
+
+![](https://i.ibb.co/9rP7mQ9/image.png)
+
+## Add new users
+
+Add a new user by the nickname `user1`.
+![](https://i.ibb.co/XbkMZk0/image.png)
+
+Configurate the credentionals of the `user1`.
+![](https://i.ibb.co/4ThN9NZ/image.png)
+
+Configurate the roles of the `user1`.
+![](https://i.ibb.co/TBpH1xd/image.png)
+
+That's all. But, also you can create other users, for example `user2` with role `ADMIN` and `user3` with role `USER, ADMIN`.
+
+## Get access token
+![](https://i.ibb.co/RCRPVgY/image.png)
+
+## Testing endpoint
+`{{access_token}}` is your access token.
+![](https://i.ibb.co/n6zBtGx/image.png)
+
+
+Thanks for attention.
