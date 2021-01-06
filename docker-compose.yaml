@@ -1,9 +1,25 @@
 version: '3'
 
 services:
+  ksbd-postgres:
+    container_name: ksbd-postgres
+    image: 'postgres:11.1'
+    networks:
+      - net
+    ports:
+      - 5432:5432
+    environment:
+      LC_ALL: 'C.UTF-8'
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: ksbd-keycloak
+      PGDATA: /var/lib/postgresql/data
+      restart: unless-stopped
+
   ksbd-keycloak:
-    image: quay.io/keycloak/keycloak:12.0.1
     container_name: ksbd-keycloak
+    image: jboss/keycloak:12.0.0
     networks:
       - net
     ports:
@@ -11,6 +27,14 @@ services:
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      DB_VENDOR: POSTGRES
+      DB_ADDR: ksbd-postgres
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_DATABASE: ksbd-keycloak
+      DB_SCHEMA: public
+    depends_on:
+      - ksbd-postgres
     restart: unless-stopped
 
 networks:
