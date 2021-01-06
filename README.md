@@ -91,6 +91,8 @@ lsof -i tcp:7070
 kill -9 <PID>
 ```
 
+![](https://i.ibb.co/fNHFy4Z/image.png)
+
 ## Keycloak configuration
 Open the [localhost:7070/auth](http://localhost:7070/auth) on browser and click the Administration console link.
 
