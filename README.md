@@ -148,4 +148,7 @@ That's all. But, also you can create other users, for example `user2` with role 
 ![](https://i.ibb.co/n6zBtGx/image.png)
 
 
+## Refresh token
+![](https://i.ibb.co/Wf1ngBV/image.png)
+
 Thanks for attention.
