@@ -21,14 +21,32 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
+    /**
+     * HTTP security configuration
+     *
+     * <h2>Example Usage</h2>
+     *
+     * <pre>
+     * http
+     *     .authorizeRequests()
+     *     .antMatchers("/books/anonymous").permitAll()
+     *     .antMatchers("/books/user").hasAnyRole("USER")
+     *     .antMatchers("/books/admin").hasAnyRole("ADMIN")
+     *     .antMatchers("/books/authenticated-users").hasAnyRole("USER","ADMIN")
+     *     .anyRequest().permitAll();
+     * http
+     *     .csrf().disable();
+     * </pre>
+     *
+     * For additional examples, refer to the Java Doc of individual methods on {@link HttpSecurity}.
+     *
+     * @param http Allows configuring web based security for specific http requests
+     * @throws Exception Throws different exceptions
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                //.antMatchers("/books/anonymous").permitAll()
-                //.antMatchers("/books/user").hasAnyRole("user")
-                //.antMatchers("/books/admin").hasAnyRole("admin")
-                //.antMatchers("/books/all-user").hasAnyRole("user","admin")
                 .anyRequest()
                 .permitAll();
         http.csrf().disable();

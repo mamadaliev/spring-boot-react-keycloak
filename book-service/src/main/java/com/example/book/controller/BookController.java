@@ -1,7 +1,10 @@
 package com.example.book.controller;
 
+import com.example.book.model.User;
 import com.example.book.service.BookService;
 import com.example.book.util.CurrentUserUtil;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,20 +19,20 @@ public class BookController {
     BookService bookService;
 
     @GetMapping
-    public String anonymous() {
-        return "Books of " + CurrentUserUtil.getNickName();
+    public Pair<String, String> anonymous() {
+        return new ImmutablePair<>("user", CurrentUserUtil.getNickName());
     }
 
     @GetMapping("/user")
     @PreAuthorize("hasRole('USER')")
-    public String user() {
-        return "Books of " + CurrentUserUtil.getNickName();
+    public User user() {
+        return CurrentUserUtil.getModel();
     }
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
-    public String admin() {
-        return "Books of " + CurrentUserUtil.getNickName();
+    public User admin() {
+        return CurrentUserUtil.getModel();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.book.util;
 
+import com.example.book.model.Role;
+import com.example.book.model.User;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.spi.KeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -10,8 +12,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CurrentUserUtil {
+
+    public static User getModel() {
+        return User.builder()
+                .id(getId())
+                .nickName(getNickName())
+                .firstName(getFirstName())
+                .lastName(getLastName())
+                .roles(getRoles())
+                .build();
+    }
 
     public static String getId() {
         return getUserInfo().map(IDToken::getId).orElse(null);
@@ -23,8 +36,12 @@ public class CurrentUserUtil {
                 .orElse("anonymous");
     }
 
-    public static Set<String> getRoles() {
-        return getKeycloakAccount().map(KeycloakAccount::getRoles).orElse(null);
+    public static Set<Role> getRoles() {
+        return getKeycloakAccount()
+                .map(keycloakAccount -> keycloakAccount.getRoles()
+                        .stream().map(Role::valueOf)
+                        .collect(Collectors.toSet()))
+                .orElse(null);
     }
 
     public static String getEmail() {
@@ -32,7 +49,7 @@ public class CurrentUserUtil {
     }
 
     public static String getFirstName() {
-        return getUserInfo().map(IDToken::getName).orElse(null);
+        return getUserInfo().map(IDToken::getGivenName).orElse(null);
     }
 
     public static String getLastName() {
@@ -63,4 +80,5 @@ public class CurrentUserUtil {
         }
         return Optional.ofNullable(((KeycloakAuthenticationToken) authentication).getAccount());
     }
+
 }
