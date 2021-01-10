@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import constants from '../util/constants.js'
+import constants from '../helpers/constants.js'
 
 // noinspection JSUnusedGlobalSymbols
 export function logout() {
