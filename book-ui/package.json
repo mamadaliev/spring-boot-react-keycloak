@@ -1,0 +1,29 @@
+{
+  "name": "book-ui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "latest",
+    "qs": "^6.9.4",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "2.0.3"
+  },
+  "resolutions": {
+    "url-parse": "1.4.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

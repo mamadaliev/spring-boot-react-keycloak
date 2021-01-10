@@ -34,7 +34,7 @@ export function login(username, password) {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
       let accessToken = 'access_token' in response.data ? response.data.access_token : null;
       let refreshToken = 'refresh_token' in response.data ? response.data.refresh_token : null;
       authenticate(accessToken, refreshToken);
@@ -85,7 +85,7 @@ export async function refreshAccessToken() {
   axios(config)
     .then(function (response) {
       if (response.status === 200) {
-        console.log(JSON.stringify(response.data));
+        console.log(response.data);
         console.log('SYSTEM: Access token was taken, system are trying to login with the access token...');
         let accessToken = 'access_token' in response.data ? response.data.access_token : null;
         authenticate(accessToken, refreshToken);
