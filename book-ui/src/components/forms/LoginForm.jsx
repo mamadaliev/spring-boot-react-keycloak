@@ -1,5 +1,6 @@
-import {login} from "../service/AuthService";
 import React from "react";
+
+import { login } from "../../service/AuthService";
 
 export class LoginForm extends React.Component {
 
@@ -19,10 +20,6 @@ export class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('e: ' + event)
-    console.log('s: ' + this.state)
-    console.log(event.target.login.value)
-    console.log(event.target.password.value)
     login(event.target.login.value, event.target.password.value)
     event.preventDefault();
   }

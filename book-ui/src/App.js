@@ -1,7 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router";
 import { BrowserRouter, Link } from "react-router-dom";
-import {LoginForm} from "./component/LoginForm";
+
+import { LoginForm } from "./components/forms/LoginForm";
 
 export default function App() {
   return (

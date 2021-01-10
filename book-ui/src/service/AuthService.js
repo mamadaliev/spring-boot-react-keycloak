@@ -10,11 +10,7 @@ export function logout() {
   window.localStorage.removeItem(constants.KEY_EXPIRES_IN);
 }
 
-// noinspection JSDuplicatedDeclaration
 export function login(username, password) {
-
-  console.log(constants)
-
   const data = qs.stringify({
     'grant_type': constants.OAUTH2_GRANT_TYPE.PASSWORD,
     'client_id': constants.OAUTH2_CLIENT_ID,
@@ -39,8 +35,8 @@ export function login(username, password) {
       let refreshToken = 'refresh_token' in response.data ? response.data.refresh_token : null;
       authenticate(accessToken, refreshToken);
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(function () {
+      console.log('Invalid credentials for authentication.');
     });
 }
 
