@@ -1,8 +1,8 @@
 import React from "react";
 import {LoginForm} from "./LoginForm";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import { setAuthenticated } from '../../store/auth/actions'
+import {setAuthStatus, setAuthLogin, setAuthPassword} from '../../store/auth/actions'
 
 export class LoginFromComponent extends React.Component {
 
@@ -15,12 +15,16 @@ export class LoginFromComponent extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.auth.isAuthenticated
+    isLogged: state.auth.isLogged,
+    login: state.auth.login,
+    password: state.auth.password
   }
 }
 
 const mapDispatchToProps = {
-  setAuthenticated
+  setAuthStatus,
+  setAuthLogin,
+  setAuthPassword
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginFromComponent)

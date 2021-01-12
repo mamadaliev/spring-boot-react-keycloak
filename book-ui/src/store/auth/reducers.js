@@ -1,13 +1,24 @@
-import {AUTHENTICATED_STATUS} from "./actions";
+import {
+  CHANGE_AUTH_STATUS,
+  CHANGE_AUTH_LOGIN,
+  CHANGE_AUTH_PASSWORD
+} from "./actions";
 
 const defaultState = {
-  isAuthenticated: false
+  isLogged: false,
+  login: '',
+  password: ''
 }
 
 export const authReducer = (state = defaultState, action) => {
-  if (action.type === AUTHENTICATED_STATUS) {
-    return {...state, isAuthenticated: action.payload}
-  } else {
-    return state
+  switch (action.type) {
+    case CHANGE_AUTH_STATUS:
+      return {...state, isLogged: action.payload}
+    case CHANGE_AUTH_LOGIN:
+      return {...state, login: action.payload}
+    case CHANGE_AUTH_PASSWORD:
+      return {...state, password: action.payload}
+    default:
+      return state
   }
 }

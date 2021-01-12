@@ -5,12 +5,26 @@ import constants from '../helpers/constants.js'
 
 // noinspection JSUnusedGlobalSymbols
 export function logout() {
-  window.localStorage.removeItem(constants.KEY_ACCESS_TOKEN);
-  window.localStorage.removeItem(constants.KEY_REFRESH_TOKEN);
-  window.localStorage.removeItem(constants.KEY_EXPIRES_IN);
+  window.localStorage.removeItem(constants.KEY_ACCESS_TOKEN)
+  window.localStorage.removeItem(constants.KEY_REFRESH_TOKEN)
+  window.localStorage.removeItem(constants.KEY_EXPIRES_IN)
 }
 
-export function login(username, password) {
+export function authenticate(accessToken, refreshToken) {
+  if (!accessToken || !refreshToken) {
+    console.warn(`Got bad token while logging in.\nAccess Token: ${accessToken}.\nRefresh Token: ${refreshToken}`)
+  }
+
+  let loggedBefore = (new Date().getTime() + 60 * 60 * 1000).toString();
+
+  window.localStorage.setItem(constants.KEY_ACCESS_TOKEN, accessToken)
+  window.localStorage.setItem(constants.KEY_LOGGED_BEFORE, loggedBefore)
+  window.localStorage.setItem(constants.KEY_REFRESH_TOKEN, refreshToken)
+
+  return true;
+}
+
+export async function login(username, password) {
   const data = qs.stringify({
     'grant_type': constants.OAUTH2_GRANT_TYPE.PASSWORD,
     'client_id': constants.OAUTH2_CLIENT_ID,
@@ -28,28 +42,16 @@ export function login(username, password) {
     data : data
   };
 
-  axios(config)
-    .then(function (response) {
-      console.log(response.data);
-      let accessToken = 'access_token' in response.data ? response.data.access_token : null;
-      let refreshToken = 'refresh_token' in response.data ? response.data.refresh_token : null;
-      authenticate(accessToken, refreshToken);
+  await axios(config)
+    .then(function (resp) {
+      console.log(resp.data);
+      let accessToken = 'access_token' in resp.data ? resp.data.access_token : null
+      let refreshToken = 'refresh_token' in resp.data ? resp.data.refresh_token : null
+      authenticate(accessToken, refreshToken)
     })
     .catch(function () {
       console.log('Invalid credentials for authentication.');
     });
-}
-
-export function authenticate(accessToken, refreshToken) {
-  if (!accessToken || !refreshToken) {
-    console.warn(`Got bad token while logging in.\nAccess Token: ${accessToken}.\nRefresh Token: ${refreshToken}`);
-  }
-
-  let loggedBefore = (new Date().getTime() + 60 * 60 * 1000).toString();
-
-  window.localStorage.setItem(constants.KEY_ACCESS_TOKEN, accessToken);
-  window.localStorage.setItem(constants.KEY_LOGGED_BEFORE, loggedBefore);
-  window.localStorage.setItem(constants.KEY_REFRESH_TOKEN, refreshToken);
 }
 
 export async function refreshAccessToken() {
@@ -79,8 +81,8 @@ export async function refreshAccessToken() {
     .then(function (response) {
       if (response.status === 200) {
         console.log(response.data);
-        console.log('SYSTEM: Access token was taken, system are trying to login with the access token...');
-        let accessToken = 'access_token' in response.data ? response.data.access_token : null;
+        console.log('SYSTEM: Access token was taken, system are trying to login with the access token...')
+        let accessToken = 'access_token' in response.data ? response.data.access_token : null
         authenticate(accessToken, refreshToken);
       }
     })
@@ -90,7 +92,7 @@ export async function refreshAccessToken() {
 }
 
 export function getRefreshToken() {
-  return window.localStorage.getItem(constants.KEY_REFRESH_TOKEN);
+  return window.localStorage.getItem(constants.KEY_REFRESH_TOKEN)
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -103,7 +105,7 @@ export async function getAccessToken() {
   }
 
   if (accessToken && loggedBefore <= new Date().getTime()) {
-    console.log('SYSTEM: Access token expired, system are trying to refresh the access token...');
+    console.log('SYSTEM: Access token expired, system are trying to refresh the access token...')
     return await refreshAccessToken();
   }
   return accessToken;

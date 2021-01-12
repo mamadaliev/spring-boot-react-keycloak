@@ -2,8 +2,8 @@ import React from "react";
 import {Switch, Route} from "react-router";
 import {BrowserRouter, Link, Redirect} from "react-router-dom";
 
-import {LoginForm} from "./components/auth/LoginForm";
 import {isAuthenticated, logout} from "./service/AuthService";
+import LoginFormComponent from "./components/auth/LoginFormComponent";
 
 export default function App() {
   return (
@@ -31,8 +31,10 @@ export default function App() {
           <Route exact path="/"><Home/></Route>
           <Route path="/about"><About/></Route>
           <Route path="/dashboard"><Dashboard/></Route>
-          <Route path="/login"><LoginForm/></Route>
-          <Route path="/logout"><Logout/></Route>
+          <Route path="/login"><LoginFormComponent/></Route>
+          <Route path="/logout">
+            <Logout/>
+          </Route>
         </Switch>
       </div>
     </BrowserRouter>

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Redirect} from "react-router";
-import {isAuthenticated, login} from "../../service/AuthService";
+import {login} from "../../service/AuthService";
 
 export class LoginForm extends React.Component {
 
@@ -20,30 +20,45 @@ export class LoginForm extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    // if (login(event.target.login.value, event.target.password.value)) {
-    //   return <Redirect to={'/'}/>
-    // }
-    // console.log(login(event.target.login.value, event.target.password.value))
-    //
-    // this.props.setAuthenticated(true);
-    console.log(this.props.isAuthenticated);
+  onLoginChange = (event) => {
+    this.props.setAuthLogin(event.target.value)
+  }
 
+  onPasswordChange = (event) => {
+    this.props.setAuthPassword(event.target.value)
+  }
+
+  handleSubmit(event) {
+    login(this.props.login, this.props.password).then(r => {
+      this.props.setAuthStatus(true)
+    })
     event.preventDefault();
   }
 
   render() {
 
-    if (isAuthenticated()) {
+    if (this.props.isLogged) {
       return <Redirect to={'/'}/>
     }
 
     return (
       <div>
         <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <input id={'login'} type={'text'} placeholder={'Login'}/>
-          <input id={'password'} type={'password'} placeholder={'Password'}/>
-          <input type="submit" value="Login"/>
+          <input
+            id={'login'}
+            type={'text'}
+            value={this.props.login}
+            onChange={this.onLoginChange}
+            placeholder={'Login'}/>
+          <input
+            id={'password'}
+            type={'password'}
+            value={this.props.password}
+            onChange={this.onPasswordChange}
+            placeholder={'Password'}/>
+          <input
+            type="submit"
+            value="Login"/>
         </form>
       </div>
     );

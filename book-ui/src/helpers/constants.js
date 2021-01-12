@@ -7,7 +7,7 @@ const constants = {
     // OAuth2
     OAUTH2_REALM: 'dev',
     OAUTH2_CLIENT_ID: 'book',
-    OAUTH2_CLIENT_SECRET: 'cb7b497c-b04a-4070-9e0d-74250dfa7f65',
+    OAUTH2_CLIENT_SECRET: 'e52a6f94-531d-4585-9e85-5126f7d336ef',
     OAUTH2_GRANT_TYPE: {
         PASSWORD: 'password',
         REFRESH_TOKEN: 'refresh_token'
