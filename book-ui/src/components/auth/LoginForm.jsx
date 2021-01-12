@@ -24,7 +24,11 @@ export class LoginForm extends React.Component {
     // if (login(event.target.login.value, event.target.password.value)) {
     //   return <Redirect to={'/'}/>
     // }
-    console.log(login(event.target.login.value, event.target.password.value))
+    // console.log(login(event.target.login.value, event.target.password.value))
+    //
+    // this.props.setAuthenticated(true);
+    console.log(this.props.isAuthenticated);
+
     event.preventDefault();
   }
 

@@ -2,7 +2,7 @@ import React from "react";
 import {Switch, Route} from "react-router";
 import {BrowserRouter, Link, Redirect} from "react-router-dom";
 
-import {LoginForm} from "./components/forms/LoginForm";
+import {LoginForm} from "./components/auth/LoginForm";
 import {isAuthenticated, logout} from "./service/AuthService";
 
 export default function App() {
