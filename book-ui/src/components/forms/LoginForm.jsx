@@ -1,6 +1,7 @@
 import React from "react";
 
-import { login } from "../../service/AuthService";
+import {Redirect} from "react-router";
+import {isAuthenticated, login} from "../../service/AuthService";
 
 export class LoginForm extends React.Component {
 
@@ -20,17 +21,27 @@ export class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
-    login(event.target.login.value, event.target.password.value)
+    // if (login(event.target.login.value, event.target.password.value)) {
+    //   return <Redirect to={'/'}/>
+    // }
+    console.log(login(event.target.login.value, event.target.password.value))
     event.preventDefault();
   }
 
   render() {
+
+    if (isAuthenticated()) {
+      return <Redirect to={'/'}/>
+    }
+
     return (
-      <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-        <input id={'login'} type={'text'} placeholder={'Login'}  />
-        <input id={'password'} type={'password'} placeholder={'Password'}  />
-        <input type="submit" value="Login" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+          <input id={'login'} type={'text'} placeholder={'Login'}/>
+          <input id={'password'} type={'password'} placeholder={'Password'}/>
+          <input type="submit" value="Login"/>
+        </form>
+      </div>
     );
   }
 }

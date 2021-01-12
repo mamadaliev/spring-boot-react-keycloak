@@ -43,7 +43,6 @@ export function login(username, password) {
 export function authenticate(accessToken, refreshToken) {
   if (!accessToken || !refreshToken) {
     console.warn(`Got bad token while logging in.\nAccess Token: ${accessToken}.\nRefresh Token: ${refreshToken}`);
-    return false;
   }
 
   let loggedBefore = (new Date().getTime() + 60 * 60 * 1000).toString();
@@ -51,8 +50,6 @@ export function authenticate(accessToken, refreshToken) {
   window.localStorage.setItem(constants.KEY_ACCESS_TOKEN, accessToken);
   window.localStorage.setItem(constants.KEY_LOGGED_BEFORE, loggedBefore);
   window.localStorage.setItem(constants.KEY_REFRESH_TOKEN, refreshToken);
-
-  return true;
 }
 
 export async function refreshAccessToken() {
@@ -114,5 +111,6 @@ export async function getAccessToken() {
 
 // noinspection JSUnusedGlobalSymbols
 export function isAuthenticated() {
+  console.log(!!getRefreshToken())
   return !!getRefreshToken();
 }
