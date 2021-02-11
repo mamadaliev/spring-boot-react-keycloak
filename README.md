@@ -1,4 +1,4 @@
-# keycloak-spring-boot-demo
+# spring-boot-react-keycloak
 
 ### Stack
 - Open JDK 11
